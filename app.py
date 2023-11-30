@@ -48,12 +48,12 @@ def seleciona_usuario(id):
 @app.route("/usuario", methods=["POST"])
 def cria_usuario(): 
     try:
-        body = request.get_json()
+        data = request.get_json()
 
         if(validar_dados_requisicao(body)):
-            usuario = Usuario(name=body["name"], cpf=body["cpf"],age=body["age"])
+            usuario = Usuario(name=data["name"], cpf=data["cpf"],age=data["age"])
             
-        if(validate_age_format(body["age"]) and validate_cpf(body["cpf"])): 
+        if(validate_age_format(body["age"]) and validate_cpf(data["cpf"])): 
             db.session.add(usuario)
             db.session.commit()
             return gera_response(201, "usuario", usuario.to_json(), "Usuario criado com sucesso")
