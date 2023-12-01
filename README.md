@@ -13,15 +13,18 @@ Descrição da API:
 
 -API denvolvida em Python com o Framework Flask.
  Endpoints:
- 
+
  /usuarios [method = GET]
+
 retorna os dados de  todos os usuários cadastrados no sistema no formato JSON
 
 /usuario/<id> [method = GET]
+
 retorna os dados de um únicos usuário cadastrado no sistema no formato JSON
 obrigatório o ID do usuário
 
 /usuario [method = POST]
+
 cria um novo usuário
 Obrigatório enviar uma requisição com nome:string, cpf: string, age: string.
 *O CPF deve ser válido. Caso contrário o cadastro não será relizado
