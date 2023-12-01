@@ -2,32 +2,35 @@ from flask import Flask, Response, request
 from flask_sqlalchemy import SQLAlchemy
 import json
 from validate_docbr import CPF
-from datetime import datetime
 from os import environ
 
-# Substitua as informações abaixo pelos seus dados de conexão
 
-app = Flask(__name__)
+
+app = Flask(__name__)#inicialização do flask
+
+#configurações de banco de dados
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('DB_URL')
+
+#inicialização do ORM SQLAlchemy
 db = SQLAlchemy(app)
 
-#classe usuário
+#classe usuário para modelar a estrutura dos dados
 class Usuario(db.Model):
     __tablename__ = 'usuarios'
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(150))
     cpf = db.Column(db.String(14))  # formato xxx.xxx.xxx-xx
-    age = db.Column(db.String(10))  # formato dd/mm/yyyy
-        
+    age = db.Column(db.String(3))  # xxx
+
+    #retorna os dados do usuário no formato JSON    
     def to_json(self):
         return {"id": self.id, "name": self.name, "cpf": self.cpf, "age": self.age}
-#fim classe usuário
 
 db.create_all()
 
-# Método para buscar e retornar todos os usuários
+# Método para buscar e retornar todos os usuários 
 @app.route("/usuarios", methods=["GET"])
 def seleciona_usuarios():
     usuarios_objetos = Usuario.query.all()
@@ -58,7 +61,6 @@ def cria_usuario():
             db.session.commit()
             return gera_response(201, "usuario", usuario.to_json(), "Usuario criado com sucesso")
     except Exception as e:
-       # print('Erro', e)
         return gera_response(400, "usuario", {}, "Erro ao cadastrar usuario")
     
 
@@ -92,6 +94,7 @@ def deleta_usuario(id):
         print('Erro', e)
         return gera_response(400, "usuario", {}, "Erro ao deletar")
 
+# metódo para gerar um resposta para as requisições para a API
 def gera_response(status, nome_do_conteudo, conteudo, mensagem=False):
     body = {}
     body[nome_do_conteudo] = conteudo
@@ -102,22 +105,25 @@ def gera_response(status, nome_do_conteudo, conteudo, mensagem=False):
     return Response(json.dumps(body), status=status, mimetype="application/json")
 
 
+# método para validar se os dados enviados na requisição estão de acordo com o padrão exigido
 def validar_dados_requisicao(data):
     if 'name' not in data or 'cpf' not in data or 'age' not in data:
         return False
 
     return True
 
+#método para validar cpf. Utiliza a biblioteca validate_docbr
 def validate_cpf(cpf):
         cpf_validator = CPF()
         if not cpf_validator.validate(cpf):
             raise ValueError("CPF inválido")
         return True
 
+#método para validar se o usuário tem uma idade possível 
 def validate_age_format(age):
         try:
-            datetime.strptime(age, '%d/%m/%Y')
+           if(age > 0 and age < 150):
             return True
         except ValueError:
-            raise ValueError("Formato de data inválido. Use o formato dd/mm/yyyy")
+            raise ValueError("Idade fora do padrão")
 app.run()
