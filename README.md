@@ -13,6 +13,7 @@ Descrição da API:
 
 -API denvolvida em Python com o Framework Flask.
  Endpoints:
+ 
  /usuarios [method = GET]
 retorna os dados de  todos os usuários cadastrados no sistema no formato JSON
 
