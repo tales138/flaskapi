@@ -72,13 +72,13 @@ O aaquivo Dockerfile recebe (requirements.txt) com dependências necessárias pa
 
 Após verificar esses requisitos, excecute os seguintes comandos para inciar a aplicação:
 
-1 - docker compose up -d flask_db
+docker compose up -d flask_db
 
-2 - docker ps -a
+docker ps -a
 
-3 - docker compose build
+docker compose build
 
-4 - docke compose up --build flask_app
+docker compose up --build flask_app
 
 * Se desejar um gerenciador gráfico para o PostgreSQL, use o Dbeaver
 
