@@ -17,9 +17,9 @@ services:
     ports:
       - "5432:5432"
     environment:
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_DB=postgres
+      - POSTGRES_PASSWORD=senhapostgre
+      - POSTGRES_USER=userpostgre
+      - POSTGRES_DB=nomebanco
     volumes:
       - pgdata:/var/lib/postgresql/data
 

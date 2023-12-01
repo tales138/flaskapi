@@ -28,7 +28,7 @@ class Usuario(db.Model):
     def to_json(self):
         return {"id": self.id, "name": self.name, "cpf": self.cpf, "age": self.age}
 
-db.create_all()
+db.create_all()#linha de código deletável caso deseje conectar com um banco de dados já existente
 
 # Método para buscar e retornar todos os usuários 
 @app.route("/usuarios", methods=["GET"])
