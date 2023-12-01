@@ -1,6 +1,8 @@
 # crudlapisco
 desafio bolsista backend lapisco
 
+Candidato: << Tales Rodrigues >>
+
 Desafio proposto:
 
 Implementar um CRUD de usuários utilizando uma API. 
