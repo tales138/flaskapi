@@ -69,6 +69,7 @@ As dependências externas da aplicação estão listadas no arquivo requirements
 O aaquivo Dockerfile recebe (requirements.txt) com dependências necessárias para a aplicação, além de definir configurações básicas de aplicação flask.
 
 Após verificar esses requisitos, excecute os seguintes comandos para inciar a aplicação:
+
 1 - docker compose up -d flask_db
 
 2 - docker ps -a
