@@ -1,9 +1,5 @@
-# crudlapisco
-desafio bolsista backend lapisco
+# FLASK API
 
-Candidato: << Tales Rodrigues >>
-
-Desafio proposto:
 
 Implementar um CRUD de usuários utilizando uma API. 
 
